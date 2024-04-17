@@ -1,0 +1,9 @@
+#!/bin/bash
+
+args="$@"
+komodo_cli='./komodo-cli'
+
+./listassetchains | while read chain; do
+  echo $chain
+  $komodo_cli --ac_name=$chain $args
+done

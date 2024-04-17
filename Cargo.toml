@@ -1,0 +1,90 @@
+[package]
+name = "librustzcash"
+description = "Rust FFI used by the zcashd binary. Not an official API."
+version = "0.2.0"
+authors = [
+    "Sean Bowe <ewillbefull@gmail.com>",
+    "Jack Grigg <jack@z.cash>",
+    "Jay Graber <jay@z.cash>",
+    "Simon Liu <simon@z.cash>"
+]
+homepage = "https://github.com/zcash/zcash"
+repository = "https://github.com/zcash/zcash"
+readme = "README.md"
+license = "MIT OR Apache-2.0"
+edition = "2018"
+
+[lib]
+name = "rustzcash"
+path = "src/rust/src/rustzcash.rs"
+crate-type = ["staticlib"]
+
+[dependencies]
+bellman = "0.14"
+blake2b_simd = "1"
+blake2s_simd = "1"
+bls12_381 = "0.8"
+bridgetree = "0.4"
+byteorder = "1"
+group = "0.13"
+hex = "0.4"
+incrementalmerkletree = "0.5"
+libc = "0.2"
+jubjub = "0.10"
+memuse = "0.2"
+subtle = "2.2"
+rand_core = "0.6"
+tracing = "0.1"
+tracing-core = "0.1"
+tracing-appender = "0.1"
+zcash_address = "0.3"
+zcash_encoding = "0.2"
+zcash_history = "0.3"
+zcash_note_encryption = "0.4"
+zcash_primitives = { version = "=0.13.0-rc.1", features = ["temporary-zcashd", "transparent-inputs"] }
+zcash_proofs = { version = "=0.13.0-rc.1", features = ["directories"] }
+ed25519-zebra = "4"
+rand = "0.8"
+tiny-bip39 = "0.6.2"
+wagyu-zcash-parameters = "0.2"
+
+# Rust/C++ interop
+# The version needs to match depends/packages/native_cxxbridge.mk
+cxx = { version = "=1.0.107", features = ["c++17"] }
+
+# Metrics
+hyper = { version = "=0.14.12", default-features = false, features = ["server", "tcp", "http1"] }
+ipnet = "2"
+metrics = "0.14.2"
+metrics-exporter-prometheus = "0.3"
+thiserror = "1"
+tokio = { version = "1.8", features = ["rt", "net", "time", "macros"] }
+
+# Temporary workaround for https://github.com/myrrlyn/funty/issues/3
+funty = "=1.1.0"
+
+[patch.crates-io]
+zcash_address = { git = "https://github.com/elosysnetwork/librustzcash", rev = "c5098346214986986b5cdf2864a783434bf43135"}
+zcash_encoding = { git = "https://github.com/elosysnetwork/librustzcash", rev = "c5098346214986986b5cdf2864a783434bf43135"}
+zcash_note_encryption = { git = "https://github.com/elosysnetwork/librustzcash", rev = "c5098346214986986b5cdf2864a783434bf43135"}
+zcash_primitives = { git = "https://github.com/elosysnetwork/librustzcash", rev = "c5098346214986986b5cdf2864a783434bf43135"}
+zcash_proofs = { git = "https://github.com/elosysnetwork/librustzcash", rev = "c5098346214986986b5cdf2864a783434bf43135"}
+zcash_history = { git = "https://github.com/elosysnetwork/librustzcash", rev = "c5098346214986986b5cdf2864a783434bf43135"}
+
+#Test local changes to librustzcash
+# zcash_address = { path = '../librustzcash/components/zcash_address'}
+# zcash_encoding = { path = '../librustzcash/components/zcash_encoding'}
+# zcash_note_encryption = { path = '../librustzcash/components/zcash_note_encryption'}
+# zcash_primitives = { path = '../librustzcash/zcash_primitives'}
+# zcash_proofs = { path = '../librustzcash/zcash_proofs'}
+# zcash_history = { path = '../librustzcash/zcash_history'}
+
+[dependencies.tracing-subscriber]
+version = "0.2.12"
+default-features = false
+features = ["ansi", "chrono", "env-filter"]
+
+[profile.release]
+lto = true
+panic = 'abort'
+codegen-units = 1

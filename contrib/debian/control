@@ -1,0 +1,18 @@
+Source: komodo
+Section: utils
+Priority: optional
+Maintainer: Komodo Platform <support@komodoplatform.com>
+Homepage: https://komodoplatform.com/
+Build-Depends: autoconf, automake, bsdmainutils, build-essential,
+ git, g++-multilib, libc6-dev, libtool,
+ m4, ncurses-dev, pkg-config, python,
+ unzip, wget, zlib1g-dev
+Vcs-Git: https://github.com/jl777/komodo
+Vcs-Browser: https://github.com/jl777/komodo
+
+Package: komodo
+Architecture: amd64
+Depends: ${shlibs:Depends}
+Description: Komodo (KMD) full node. The future is multi-chain.
+ This package provides the daemon, komodod, and the CLI tool,
+ komodo-cli, to interact with the daemon.

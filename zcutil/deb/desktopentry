@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Treasure Chest
+Comment=Full node UI wallet for Elosys
+GenericName=TreasureChest
+Exec=/usr/local/bin/elosys-qt %u
+Icon=elosys.xpm
+Type=Application
+StartupNotify=true
+StartupWMClass=elosys-qt
+Categories=Utility;
+MimeType=x-scheme-handler/elosys;
+Keywords=TreasureChest;
